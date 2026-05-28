@@ -1,0 +1,117 @@
+<section class="data-table surface-card">
+  <header class="data-table__header">
+    <div class="data-table__title">
+      <span class="data-table__eyebrow">Operación comercial</span>
+      <h3>Transacciones recientes</h3>
+      <p>{{ activeFilterLabel() }}</p>
+    </div>
+
+    <div class="data-table__toolbar">
+      <label class="data-table__search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10.5 4a6.5 6.5 0 0 1 5.16 10.46l3.94 3.94a.75.75 0 0 1-1.06 1.06l-3.94-3.94A6.5 6.5 0 1 1 10.5 4Zm0 1.5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z" />
+        </svg>
+        <input
+          type="search"
+          [value]="searchTerm()"
+          placeholder="Buscar cliente, producto o ID"
+          (input)="updateSearch($any($event.target).value)"
+        />
+      </label>
+
+      <label class="data-table__page-size">
+        <span>Filas</span>
+        <select [value]="pageSize()" (change)="changePageSize($any($event.target).value)">
+          @for (option of pageSizeOptions; track option) {
+            <option [value]="option">{{ option }}</option>
+          }
+        </select>
+      </label>
+
+      <button type="button" class="data-table__export" [disabled]="!sortedTransactions().length" (click)="exportCurrentView()">
+        {{ exported() ? '✓ Exportado' : 'Exportar' }}
+      </button>
+    </div>
+  </header>
+
+  @if (errorMessage()) {
+    <div class="data-table__error">
+      <strong>No se pudieron cargar las transacciones</strong>
+      <p>{{ errorMessage() }}</p>
+      <button type="button" (click)="retry.emit()">Reintentar</button>
+    </div>
+  } @else {
+    <div class="data-table__body">
+      <table>
+        <thead>
+          <tr>
+            @for (header of [
+              { key: 'id', label: 'ID' },
+              { key: 'client', label: 'Cliente' },
+              { key: 'product', label: 'Producto' },
+              { key: 'amount', label: 'Importe' },
+              { key: 'status', label: 'Estado' },
+              { key: 'date', label: 'Fecha' }
+            ]; track header.key) {
+              <th>
+                <button type="button" (click)="toggleSort($any(header.key))">
+                  {{ header.label }}
+                  <span>{{ sortLabel($any(header.key)) }}</span>
+                </button>
+              </th>
+            }
+          </tr>
+        </thead>
+
+        <tbody>
+          @if (loading()) {
+            @for (row of skeletonRows; track $index) {
+              <tr>
+                @for (column of [1, 2, 3, 4, 5, 6]; track column) {
+                  <td><span class="skeleton-row"></span></td>
+                }
+              </tr>
+            }
+          } @else if (showEmptyState()) {
+            <tr>
+              <td colspan="6">
+                <div class="data-table__empty">
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path d="M10 14.5A4.5 4.5 0 0 1 14.5 10h35A4.5 4.5 0 0 1 54 14.5v27A4.5 4.5 0 0 1 49.5 46H31.03l-8.5 8.5a1.75 1.75 0 0 1-2.98-1.24V46H14.5A4.5 4.5 0 0 1 10 41.5v-27Zm11 9a2 2 0 1 0 0 4h22a2 2 0 1 0 0-4H21Zm0 10a2 2 0 1 0 0 4h14a2 2 0 1 0 0-4H21Z" />
+                  </svg>
+                  <strong>No se encontraron resultados</strong>
+                  <p>Prueba con otro texto de búsqueda o ajusta el rango de fechas.</p>
+                </div>
+              </td>
+            </tr>
+          } @else {
+            @for (transaction of paginatedTransactions(); track transaction.id) {
+              <tr>
+                <td class="mono">{{ transaction.id }}</td>
+                <td>{{ transaction.client }}</td>
+                <td>{{ transaction.product }}</td>
+                <td class="mono">{{ transaction.amount | currencyFormat }}</td>
+                <td>
+                  <span class="status-badge" [class.status-badge--completed]="transaction.status === 'completed'" [class.status-badge--pending]="transaction.status === 'pending'" [class.status-badge--cancelled]="transaction.status === 'cancelled'">
+                    {{ statusLabel(transaction.status) }}
+                  </span>
+                </td>
+                <td>{{ transaction.date | date:'dd MMM yyyy' }}</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="data-table__footer">
+      <span>{{ tableSummary() }}</span>
+
+      <div class="data-table__pagination">
+        <button type="button" (click)="previousPage()" [disabled]="currentPage() === 1">Anterior</button>
+        <span>Página {{ currentPage() }} / {{ totalPages() }}</span>
+        <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">Siguiente</button>
+      </div>
+    </footer>
+  }
+</section>

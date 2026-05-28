@@ -1,0 +1,137 @@
+<app-error-banner
+  [message]="bannerMessage()"
+  [visible]="!!bannerMessage()"
+  (retry)="retryBannerAction()"
+  (dismiss)="dismissBanner()"
+></app-error-banner>
+
+<section class="dashboard">
+  <header class="dashboard__hero">
+    <div>
+      <span class="dashboard__eyebrow">Executive analytics</span>
+      <h1>Dashboard analítico empresarial</h1>
+      <p>
+        Supervisa ingresos, nuevos clientes, canales de captación y transacciones con una
+        experiencia oscura, elegante y lista para presentación.
+      </p>
+    </div>
+
+    <div class="dashboard__meta">
+      <span class="dashboard__badge">{{ filterBadge() }}</span>
+      @if (lastUpdated()) {
+        <span class="dashboard__updated">
+          Última actualización {{ lastUpdated() | date:'HH:mm:ss' }}
+        </span>
+      }
+    </div>
+  </header>
+
+  <section class="dashboard__filters surface-card">
+    <div class="dashboard__filters-head">
+      <div>
+        <h2>Filtros persistentes</h2>
+        <p>Cambia el rango y todos los widgets se actualizarán al mismo tiempo.</p>
+      </div>
+
+      <span class="dashboard__active-filter">{{ filterBadge() }}</span>
+    </div>
+
+    <div class="dashboard__filter-grid">
+      <label>
+        <span>Desde</span>
+        <input
+          type="date"
+          [value]="dateFromDraft()"
+          (change)="updateDateDraft('dateFrom', $any($event.target).value)"
+        />
+      </label>
+
+      <label>
+        <span>Hasta</span>
+        <input
+          type="date"
+          [value]="dateToDraft()"
+          (change)="updateDateDraft('dateTo', $any($event.target).value)"
+        />
+      </label>
+    </div>
+
+    <div class="dashboard__preset-row">
+      @for (preset of presets; track preset.id) {
+        <button
+          type="button"
+          class="dashboard__preset"
+          [class.dashboard__preset--active]="filters().preset === preset.id"
+          (click)="applyPreset(preset.id)"
+        >
+          {{ preset.label }}
+        </button>
+      }
+    </div>
+
+    @if (filterError()) {
+      <p class="dashboard__filter-error">{{ filterError() }}</p>
+    }
+  </section>
+
+  <div class="dashboard__content">
+    @if (refilterOverlayVisible()) {
+      <div class="dashboard__overlay">
+        <span class="spinner"></span>
+        <span>Actualizando widgets...</span>
+      </div>
+    }
+
+    <section class="dashboard__kpis">
+      @for (metric of kpiCards(); track metric.id) {
+        <app-kpi-card [metric]="metric" [loading]="kpisLoading()"></app-kpi-card>
+      }
+    </section>
+
+    <section class="dashboard__charts">
+      <app-chart-widget
+        class="dashboard__chart dashboard__chart--wide"
+        title="Ingresos mensuales"
+        chartType="line"
+        [dataset]="revenueChart()"
+        [period]="revenuePeriod()"
+        [loading]="revenueLoading()"
+        [errorMessage]="revenueError()"
+        (periodChange)="onRevenuePeriodChange($event)"
+        (retry)="loadRevenueChart()"
+      ></app-chart-widget>
+
+      <app-chart-widget
+        class="dashboard__chart"
+        title="Ventas por categoría"
+        chartType="bar"
+        [dataset]="categoryChart()"
+        [period]="categoryPeriod()"
+        [loading]="categoryLoading()"
+        [errorMessage]="categoryError()"
+        (periodChange)="onCategoryPeriodChange($event)"
+        (retry)="loadCategoryChart()"
+      ></app-chart-widget>
+
+      <app-chart-widget
+        class="dashboard__chart"
+        title="Clientes por canal"
+        chartType="doughnut"
+        [dataset]="channelChart()"
+        [period]="channelPeriod()"
+        [loading]="channelLoading()"
+        [errorMessage]="channelError()"
+        (periodChange)="onChannelPeriodChange($event)"
+        (retry)="loadChannelChart()"
+      ></app-chart-widget>
+    </section>
+
+    <app-data-table
+      [transactions]="transactions()"
+      [loading]="transactionsLoading()"
+      [errorMessage]="transactionsError()"
+      [activeFilterLabel]="filterBadge()"
+      (retry)="loadTransactions()"
+    ></app-data-table>
+  </div>
+</section>

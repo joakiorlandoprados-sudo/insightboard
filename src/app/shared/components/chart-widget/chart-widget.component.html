@@ -1,0 +1,56 @@
+<section class="chart-widget surface-card">
+  <header class="chart-widget__header">
+    <div>
+      <span class="chart-widget__eyebrow">Análisis dinámico</span>
+      <h3>{{ title() }}</h3>
+    </div>
+
+    <div class="chart-widget__toolbar">
+      <div class="chart-widget__periods" role="tablist" aria-label="Seleccionar período">
+        @for (currentPeriod of periods; track currentPeriod) {
+          <button
+            type="button"
+            class="chart-widget__period-button"
+            [class.chart-widget__period-button--active]="currentPeriod === period()"
+            [attr.aria-pressed]="currentPeriod === period()"
+            (click)="periodChange.emit(currentPeriod)"
+          >
+            {{ currentPeriod }}
+          </button>
+        }
+      </div>
+
+      <button type="button" class="chart-widget__export" [disabled]="!hasData()" (click)="exportChart()">
+        {{ exported() ? '✓ Exportado' : 'Exportar CSV' }}
+      </button>
+    </div>
+  </header>
+
+  <div class="chart-widget__body">
+    @if (errorMessage()) {
+      <div class="chart-widget__state chart-widget__state--error">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 6 7.75 48h48.5L32 6Zm0 13.5a3 3 0 0 1 3 3V34a3 3 0 1 1-6 0V22.5a3 3 0 0 1 3-3Zm0 25.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" />
+        </svg>
+        <strong>No se pudo cargar este gráfico</strong>
+        <p>{{ errorMessage() }}</p>
+        <button type="button" (click)="retry.emit()">Reintentar</button>
+      </div>
+    } @else if (loading() && !hasData()) {
+      <div class="chart-widget__state">
+        <span class="spinner"></span>
+        <p>Consultando datos del período seleccionado...</p>
+      </div>
+    } @else {
+      <div class="chart-widget__canvas-shell">
+        @if (loading()) {
+          <div class="chart-widget__overlay">
+            <span class="spinner"></span>
+          </div>
+        }
+
+        <canvas baseChart [data]="chartData()" [type]="chartType()" [options]="chartOptions()"></canvas>
+      </div>
+    }
+  </div>
+</section>

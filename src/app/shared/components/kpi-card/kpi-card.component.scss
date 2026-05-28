@@ -1,0 +1,146 @@
+.kpi-card {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -3rem -3rem auto;
+  width: 8rem;
+  height: 8rem;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.kpi-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kpi-card__icon {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 1rem;
+  background: rgba(99, 102, 241, 0.12);
+  color: #c7d2fe;
+  border: 1px solid rgba(99, 102, 241, 0.24);
+}
+
+.kpi-card__icon--up {
+  background: rgba(16, 185, 129, 0.12);
+  color: #a7f3d0;
+  border-color: rgba(16, 185, 129, 0.22);
+}
+
+.kpi-card__icon--down {
+  background: rgba(239, 68, 68, 0.12);
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.22);
+}
+
+.kpi-card__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+.kpi-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.kpi-card__meta span {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.kpi-card__meta strong {
+  color: var(--text-primary);
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  line-height: 1;
+}
+
+.kpi-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.kpi-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+.kpi-card__trend--up {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.kpi-card__trend--down {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.14);
+}
+
+.kpi-card__trend--neutral {
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.kpi-card__caption {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+}
+
+.kpi-card__skeleton {
+  display: grid;
+  gap: 0.85rem;
+  min-height: 0;
+}
+
+.skeleton {
+  border-radius: 0.85rem;
+}
+
+.skeleton--icon {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.skeleton--label {
+  width: 40%;
+  height: 0.95rem;
+}
+
+.skeleton--value {
+  width: 68%;
+  height: 2rem;
+}
+
+.skeleton--trend {
+  width: 48%;
+  height: 1.15rem;
+}
+
+@media (max-width: 640px) {
+  .kpi-card__foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

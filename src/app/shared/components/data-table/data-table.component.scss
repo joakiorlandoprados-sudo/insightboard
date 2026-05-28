@@ -1,0 +1,241 @@
+.data-table {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.data-table__header,
+.data-table__toolbar,
+.data-table__footer,
+.data-table__pagination,
+.data-table__search,
+.data-table__page-size,
+.data-table__error {
+  display: flex;
+}
+
+.data-table__header {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.data-table__title h3 {
+  margin: 0.2rem 0 0.4rem;
+  color: var(--text-primary);
+}
+
+.data-table__title p,
+.data-table__eyebrow {
+  color: var(--text-secondary);
+}
+
+.data-table__eyebrow {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.data-table__toolbar {
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.data-table__search,
+.data-table__page-size {
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 1rem;
+  background: rgba(15, 17, 23, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.data-table__search svg {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--text-secondary);
+}
+
+.data-table__search input,
+.data-table__page-size select {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.data-table__search input {
+  min-width: 17rem;
+}
+
+.data-table__page-size span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.data-table__export,
+.data-table__pagination button,
+.data-table__error button {
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.data-table__export {
+  padding: 0.8rem 1rem;
+  background: rgba(99, 102, 241, 0.18);
+  color: #eef2ff;
+}
+
+.data-table__export:disabled,
+.data-table__pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.data-table__body {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 840px;
+}
+
+thead th {
+  padding: 0 0 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+thead th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #cbd5e1;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+tbody td {
+  padding: 1rem 0;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.78rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.status-badge--completed {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.14);
+}
+
+.status-badge--pending {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.status-badge--cancelled {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.14);
+}
+
+.data-table__footer {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.data-table__pagination {
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.data-table__pagination button {
+  padding: 0.7rem 0.95rem;
+  background: rgba(148, 163, 184, 0.14);
+  color: var(--text-primary);
+}
+
+.skeleton-row {
+  display: block;
+  height: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(51, 65, 85, 0.45), rgba(100, 116, 139, 0.18), rgba(51, 65, 85, 0.45));
+  background-size: 200% 100%;
+  animation: shimmer 1.25s infinite linear;
+}
+
+.data-table__empty,
+.data-table__error {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 260px;
+  text-align: center;
+}
+
+.data-table__empty svg {
+  width: 3.8rem;
+  height: 3.8rem;
+  fill: rgba(148, 163, 184, 0.58);
+}
+
+.data-table__empty strong,
+.data-table__error strong {
+  color: var(--text-primary);
+}
+
+.data-table__empty p,
+.data-table__error p {
+  margin: 0;
+  max-width: 30rem;
+  color: var(--text-secondary);
+}
+
+.data-table__error {
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at top, rgba(239, 68, 68, 0.18), transparent 52%),
+    rgba(15, 17, 23, 0.72);
+  border: 1px dashed rgba(239, 68, 68, 0.24);
+}
+
+.data-table__error button {
+  padding: 0.75rem 1.05rem;
+  background: rgba(248, 113, 113, 0.16);
+  color: #ffe4e6;
+}
+
+@media (max-width: 920px) {
+  .data-table__header,
+  .data-table__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .data-table__toolbar {
+    justify-content: flex-start;
+  }
+
+  .data-table__search input {
+    min-width: 12rem;
+  }
+}

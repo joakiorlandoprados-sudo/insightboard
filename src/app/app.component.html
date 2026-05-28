@@ -1,0 +1,108 @@
+<div class="app-shell">
+  <button
+    type="button"
+    class="app-shell__backdrop"
+    [class.app-shell__backdrop--visible]="sidebarOpen()"
+    (click)="closeSidebar()"
+    aria-label="Cerrar navegación"
+  ></button>
+
+  <aside class="sidebar" [class.sidebar--open]="sidebarOpen()">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4.5 6.75A2.25 2.25 0 0 1 6.75 4.5h3A2.25 2.25 0 0 1 12 6.75v3A2.25 2.25 0 0 1 9.75 12h-3A2.25 2.25 0 0 1 4.5 9.75v-3Zm7.5 0A2.25 2.25 0 0 1 14.25 4.5h3a2.25 2.25 0 0 1 2.25 2.25v7.5A2.25 2.25 0 0 1 17.25 16.5h-3A2.25 2.25 0 0 1 12 14.25v-7.5Zm-7.5 9A2.25 2.25 0 0 1 6.75 13.5h10.5A2.25 2.25 0 0 1 19.5 15.75v1.5A2.25 2.25 0 0 1 17.25 19.5H6.75A2.25 2.25 0 0 1 4.5 17.25v-1.5Z" />
+        </svg>
+      </div>
+
+      <div>
+        <strong>InsightBoard</strong>
+        <span>Business analytics cockpit</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      @for (item of navigation; track item.label) {
+        @if (item.route) {
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="sidebar__link--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="sidebar__link"
+            (click)="closeSidebar()"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="iconPaths[item.icon]"></path>
+            </svg>
+            <span>{{ item.label }}</span>
+          </a>
+        } @else {
+          <button type="button" class="sidebar__link sidebar__link--disabled">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="iconPaths[item.icon]"></path>
+            </svg>
+            <span>{{ item.label }}</span>
+            <small>Próximamente</small>
+          </button>
+        }
+      }
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="sidebar__avatar">JQ</div>
+        <div>
+          <strong>Joaquín Vega</strong>
+          <span>Analyst lead</span>
+        </div>
+      </div>
+
+      <div class="sidebar__connection" [class.sidebar__connection--offline]="!isOnline()">
+        <span></span>
+        {{ connectionLabel() }}
+      </div>
+    </div>
+  </aside>
+
+  <div class="app-shell__content">
+    <header class="app-shell__mobile-bar">
+      <button type="button" class="app-shell__menu" (click)="toggleSidebar()" aria-label="Abrir navegación">
+        ☰
+      </button>
+
+      <div class="app-shell__mobile-brand">
+        <strong>InsightBoard</strong>
+        <span>{{ connectionLabel() }}</span>
+      </div>
+    </header>
+
+    <main class="app-shell__main">
+      <router-outlet></router-outlet>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación móvil">
+      @for (item of navigation; track item.label) {
+        @if (item.route) {
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="bottom-nav__item--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="bottom-nav__item"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="iconPaths[item.icon]"></path>
+            </svg>
+            <span>{{ item.label }}</span>
+          </a>
+        } @else {
+          <button type="button" class="bottom-nav__item bottom-nav__item--disabled">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="iconPaths[item.icon]"></path>
+            </svg>
+            <span>{{ item.label }}</span>
+          </button>
+        }
+      }
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="error-banner" [class.error-banner--visible]="visible()" role="alert" aria-live="assertive">
+  <div class="error-banner__content">
+    <span class="error-banner__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M12 3.75 2.75 19.5a1.5 1.5 0 0 0 1.29 2.25h15.92a1.5 1.5 0 0 0 1.29-2.25L12 3.75Zm0 4.5c.41 0 .75.34.75.75v4.5a.75.75 0 0 1-1.5 0V9c0-.41.34-.75.75-.75Zm0 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
+        />
+      </svg>
+    </span>
+
+    <div class="error-banner__text">
+      <strong>Se produjo un problema</strong>
+      <p>{{ message() }}</p>
+    </div>
+  </div>
+
+  <div class="error-banner__actions">
+    <button type="button" class="error-banner__retry" (click)="retry.emit()">Reintentar</button>
+    <button type="button" class="error-banner__close" (click)="dismiss.emit()" aria-label="Cerrar alerta">
+      ×
+    </button>
+  </div>
+</div>
