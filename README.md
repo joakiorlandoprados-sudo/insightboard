@@ -1,5 +1,7 @@
 # InsightBoard
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-6366f1?style=for-the-badge)](https://joakiorlandoprados-sudo.github.io/insightboard/)
+
 > Dashboard analítico empresarial construido con Angular 17+
 
 ![Angular](https://img.shields.io/badge/Angular-21.2-dd0031?style=for-the-badge&logo=angular&logoColor=white)
