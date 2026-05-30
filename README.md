@@ -1,80 +1,66 @@
 # InsightBoard
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-6366f1?style=for-the-badge)](https://joakiorlandoprados-sudo.github.io/insightboard/)
+[![Angular](https://img.shields.io/badge/Angular-21.2-dd0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Chart.js](https://img.shields.io/badge/Chart.js-4.5-ff6384?style=for-the-badge&logo=chartdotjs&logoColor=white)](https://www.chartjs.org/)
+[![Status](https://img.shields.io/badge/Status-Portfolio%20Ready-10b981?style=for-the-badge)](https://joakiorlandoprados-sudo.github.io/insightboard/)
 
-> Dashboard analítico empresarial construido con Angular 17+
+> A fully functional business analytics dashboard built with Angular 17+, featuring real-time KPI tracking, dynamic charts, advanced filtering, and CSV export — designed to reflect production-grade frontend standards.
 
-![Angular](https://img.shields.io/badge/Angular-21.2-dd0031?style=for-the-badge&logo=angular&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
-![Chart.js](https://img.shields.io/badge/Chart.js-4.5-ff6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Ready%20for%20Portfolio-10b981?style=for-the-badge)
+---
 
-## Vista previa
+## Live Demo
 
-InsightBoard presenta una interfaz dark theme de aspecto ejecutivo con:
+🔗 [joakiorlandoprados-sudo.github.io/insightboard](https://joakiorlandoprados-sudo.github.io/insightboard/)
 
-- Sidebar fijo en desktop, colapsable en tablet y bottom navigation en mobile
-- KPI cards animadas con tendencia visual y skeleton loaders
-- Gráficos dinámicos de ingresos, categorías y canales con selección de período
-- Filtros persistentes por fecha con presets rápidos
-- Tabla avanzada de transacciones con búsqueda, ordenación, paginación y exportación
-- Estados de carga, overlay de refresco y manejo de errores visuales
+---
 
-## Características
+## Overview
 
-- Arquitectura Angular moderna con standalone components y `inject()`
-- TypeScript estricto para modelos, servicios y componentes
-- `HttpClient` centralizado mediante `ApiService`
-- Interceptor de autorización mock con `Bearer mock-token`
-- Mock backend interceptado con latencia aleatoria y errores simulados
-- Reintentos automáticos con RxJS `retry(2)` y timeout de 10 segundos
-- KPI cards con contador animado usando `setInterval`
-- Chart.js integrado mediante `ng2-charts`
-- Exportación CSV en gráficos y tabla con timestamp automático
-- Filtros globales que actualizan todos los widgets al mismo tiempo
-- Tabla avanzada con debounce de búsqueda a 300 ms
-- Skeleton loaders, spinner por widget y banner de error deslizante
-- Indicador online/offline ligado a `navigator.onLine`
+InsightBoard is an enterprise-grade analytics dashboard that demonstrates professional frontend architecture and UX patterns commonly found in SaaS and business intelligence tools.
 
-## Stack tecnológico
+The UI features a dark executive theme with:
+- Fixed sidebar on desktop, collapsible on tablet, bottom navigation on mobile
+- Animated KPI cards with trend indicators and skeleton loaders
+- Dynamic charts for revenue, product categories, and acquisition channels
+- Persistent date filters with quick-select presets
+- Advanced transactions table with search, sorting, pagination, and CSV export
+- Loading states, refresh overlays, and visual error handling
 
-| Tecnología | Versión | Uso |
-| --- | --- | --- |
-| Angular | 21.2.x | Framework principal, routing standalone y renderizado UI |
-| TypeScript | 5.9.x | Tipado estricto y contratos de datos |
-| RxJS | 7.8.x | Retry, timeout, debounce, delay y flujos reactivos |
-| Chart.js | 4.5.x | Visualización de ingresos, categorías y canales |
-| ng2-charts | 10.0.x | Wrapper Angular para Chart.js |
-| SCSS | Nativo | Tema dark, layout responsive y estados visuales |
+---
 
-## Instalación y uso
+## Tech Stack
 
-```bash
-npm install
-npm start
-```
+| Technology | Version | Role |
+|------------|---------|------|
+| Angular | 21.2.x | Core framework — standalone components, routing, signals |
+| TypeScript | 5.9.x | Strict typing across models, services, and components |
+| RxJS | 7.8.x | Reactive streams — retry, timeout, debounce, delay |
+| Chart.js | 4.5.x | Revenue, category, and channel data visualizations |
+| ng2-charts | 10.0.x | Angular wrapper for Chart.js |
+| SCSS | Native | Dark theme, responsive layout, visual states |
 
-La aplicación quedará disponible en:
+---
 
-```bash
-http://127.0.0.1:4200/
-```
+## Features
 
-Build de producción:
+- **Modern Angular architecture** — standalone components throughout, no NgModules, `inject()` pattern
+- **Centralized HTTP layer** — `ApiService` with mock interceptor, auth headers, retry logic and 10s timeout
+- **Realistic mock backend** — random latency between 600–1400ms, 10% simulated error rate
+- **Animated KPI counters** — count-up effect implemented natively with `setInterval`
+- **Dynamic charts** — period selector (7D / 30D / 90D / 1Y) updates all chart data reactively
+- **Global date filters** — all widgets update simultaneously when the date range changes
+- **CSV export** — available on charts and table, auto-named with timestamp
+- **Advanced table** — real-time search with 300ms debounce, column sorting, pagination
+- **Skeleton loaders** — per-widget loading states using pure CSS animations
+- **Error handling** — slide-in toast banner with retry, empty states, and error illustrations
+- **Online/offline indicator** — bound to `navigator.onLine`
+- **Reactive state** — Angular signals for loading, filter, error, and data state
 
-```bash
-npm run build
-```
+---
 
-El artefacto generado se publica en:
-
-```bash
-dist/insightboard
-```
-
-## Arquitectura del proyecto
-
-```text
+## Project Structure
 insightboard/
 ├── src/
 │   ├── app/
@@ -109,61 +95,74 @@ insightboard/
 │   │   ├── app.component.scss
 │   │   ├── app.config.ts
 │   │   └── app.routes.ts
-│   ├── assets/
 │   ├── styles/
 │   │   └── global.scss
-│   ├── index.html
-│   ├── main.ts
-│   └── styles.scss
+│   └── index.html
 ├── angular.json
 ├── package.json
 └── README.md
+
+---
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
 ```
 
-### Descripción de módulos
+Open [http://localhost:4200](http://localhost:4200) in your browser.
 
-- `core/models`: contratos TypeScript reutilizados en toda la app
-- `core/services`: capa de consumo HTTP y generación de datos mock
-- `core/interceptors`: autorización mock y backend simulado sobre `HttpClient`
-- `shared/components`: widgets reutilizables del dashboard
-- `shared/pipes`: formateo de moneda en tablas y métricas
-- `features/dashboard`: orquestación de filtros, estados y carga concurrente
-- `styles/global.scss`: variables visuales, reset, tipografía y utilidades globales
+```bash
+# Production build
+npm run build
+```
 
-## Decisiones técnicas
+---
 
-1. **Standalone components en toda la aplicación**
-   Se evitó `NgModule` para mantener una arquitectura más ligera, moderna y alineada con Angular actual.
+## Technical Decisions
 
-2. **`ApiService` + interceptores mock**
-   En lugar de consumir el `DataMockService` directamente desde la UI, la app simula un flujo de API real con `HttpClient`, headers, retry y timeout. Esto hace el proyecto más creíble para portfolio y más fácil de conectar a un backend real.
+**1. Standalone components only**
+NgModules were avoided entirely to keep the architecture lightweight and aligned with modern Angular conventions.
 
-3. **Datos mock deterministas por filtro/período**
-   Los datos se generan con seeds derivadas del rango de fechas y del período seleccionado. Así se consigue consistencia visual al navegar sin perder realismo.
+**2. ApiService + mock interceptor**
+Rather than calling the mock service directly from the UI, the app simulates a real API flow through HttpClient with headers, retry logic, and timeout. This makes the project easier to connect to a real backend and more representative of production patterns.
 
-4. **Signals para estado local de UI**
-   Los estados de carga, filtros, errores, exportación y datos están modelados con signals para reducir complejidad y mantener templates reactivos y fáciles de leer.
+**3. Deterministic mock data**
+Chart and KPI data is generated using seeds derived from the selected date range and period, ensuring visual consistency when navigating between filters.
 
-5. **SCSS propio sin frameworks UI**
-   Todo el layout, los skeletons, overlays y componentes visuales se construyeron desde cero para demostrar criterio de diseño y dominio de CSS/SCSS.
+**4. Angular signals for UI state**
+Loading, filter, error, and data states are modeled with signals, keeping templates reactive and reducing complexity compared to manual change detection.
 
-## Qué demuestra este proyecto
+**5. Zero UI frameworks**
+All layout, skeleton loaders, overlays, and visual components were built from scratch with SCSS to demonstrate design judgment and CSS proficiency.
 
-- Capacidad para construir dashboards empresariales completos y presentables
-- Dominio de Angular moderno más allá del scaffold básico
-- Integración de visualización de datos con estados reales de producto
-- Atención al detalle en UX: errores, loading, exportación, responsive y persistencia de filtros
-- Enfoque listo para portfolio, demos comerciales o base de un producto SaaS
+---
 
-## Próximas mejoras
+## What This Project Demonstrates
 
-- Conectar la capa mock a un backend real con autenticación JWT
-- Agregar vistas funcionales para Clientes, Transacciones y Configuración
-- Incorporar cache por filtros y memoización de respuestas
-- Añadir tests unitarios e integración para widgets clave
-- Soportar exportación a PDF o snapshot de gráficos
-- Guardar preferencias de período y layout en `localStorage`
+- Ability to build complete, presentable enterprise dashboards
+- Modern Angular beyond basic scaffolding
+- Data visualization integrated with real product UX patterns
+- Attention to detail: error states, loading flows, CSV export, responsive layout, persistent filters
+- Production-ready frontend suitable for portfolio, client demos, or as a SaaS foundation
 
-## Licencia
+---
+
+## Roadmap
+
+- [ ] Connect mock layer to a real backend with JWT authentication
+- [ ] Add functional views for Clients, Transactions, and Settings
+- [ ] Implement filter-level caching and response memoization
+- [ ] Add unit and integration tests for key widgets
+- [ ] Support PDF export and chart snapshots
+- [ ] Persist period and layout preferences in `localStorage`
+
+---
+
+## License
 
 MIT
