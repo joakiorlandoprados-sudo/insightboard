@@ -46,3 +46,5 @@ Thumbs.db
 .npm-cache/
 serve.err.log
 serve.out.logrepomix-output.xml
+.npm-cache
+.vscode
