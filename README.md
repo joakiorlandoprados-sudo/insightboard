@@ -61,6 +61,8 @@ The UI features a dark executive theme with:
 ---
 
 ## Project Structure
+
+```
 insightboard/
 ├── src/
 │   ├── app/
@@ -101,6 +103,7 @@ insightboard/
 ├── angular.json
 ├── package.json
 └── README.md
+```
 
 ---
 
